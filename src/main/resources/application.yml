@@ -1,0 +1,60 @@
+server:
+  port: 8080
+  
+info:
+  app:
+    name: Account Profile Service
+    description: Provides access to account profile information
+    version: 1.0.0
+
+spring:
+    
+  jackson:
+    serialization:
+      WRITE_DATES_AS_TIMESTAMPS: false
+      
+  servlet:
+    multipart:
+      max-file-size: 10MB 
+      max-request-size: 10MB
+      enabled: true
+      
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+ 
+  cloud:
+    stream:
+      bindings:
+        output:
+          destination: AccountEvents
+        input:
+          destination: AccountEvents
+          group: accountProfileGroup #https://docs.spring.io/spring-cloud-stream/docs/current/reference/htmlsingle/#consumer-groups
+        
+    default:
+      contentType: application/json
+          
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: mongo
+      repositories:
+        enable: true
+
+management:
+  endpoints:
+    metrics:
+      sensitive: false
+    web:
+      exposure:
+        include: info,health,prometheus
+        
+management.metrics.tags.application: ${spring.application.name}
+        
+jwt.secret: 7h1nkm1cr053rv1c35
+
+ 
