@@ -24,6 +24,7 @@ services:
       - "9200:9200"
     networks:
       - spring_ri_network
+
   ##########
   # Kibana # http://localhost:5601/app/kibana#/home
   ##########
@@ -38,6 +39,7 @@ services:
       - elasticsearch
     networks:
       - spring_ri_network
+
   ###########
   # fluentd #
   ###########
@@ -60,6 +62,7 @@ services:
   ##############
   # prometheus #
   ##############
+
   prometheus:
     image: prom/prometheus:latest
     volumes:
@@ -75,6 +78,7 @@ services:
   ###########
   # grafana #
   ###########
+
   grafana:
     image: grafana/grafana
     ports:
@@ -179,7 +183,6 @@ services:
     depends_on:
       - fluentd
  
-
 
   
     links:
@@ -425,6 +428,7 @@ services:
       options:
         fluentd-address: localhost:24224
         tag:  sms-outbound.svc
+
   ###########################
   # account profile service #
   ###########################
